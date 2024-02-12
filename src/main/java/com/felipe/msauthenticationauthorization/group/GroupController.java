@@ -1,7 +1,7 @@
-package com.felipe.msauthenticationauthorization.application;
+package com.felipe.msauthenticationauthorization.group;
 
-import com.felipe.msauthenticationauthorization.application.dtos.ApplicationRequestDTO;
-import com.felipe.msauthenticationauthorization.application.dtos.ApplicationResponseDTO;
+import com.felipe.msauthenticationauthorization.group.dtos.GroupRequestDTO;
+import com.felipe.msauthenticationauthorization.group.dtos.GroupResponseDTO;
 import com.felipe.msauthenticationauthorization.utils.APIGlobalResponseDTO;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -12,18 +12,19 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1/applications")
-public class ApplicationController {
+@RequestMapping("/api/v1/groups")
+public class GroupController {
 
-    private final ApplicationService service;
+    private final GroupService service;
 
-    public ApplicationController(ApplicationService service) {
+
+    public GroupController(GroupService service) {
         this.service = service;
     }
 
     @PostMapping
-    public ResponseEntity<APIGlobalResponseDTO> create(@RequestBody @Valid ApplicationRequestDTO dto) {
-        ApplicationResponseDTO response = service.create(dto);
+    public ResponseEntity<APIGlobalResponseDTO> create(@RequestBody @Valid GroupRequestDTO dto) {
+        GroupResponseDTO response = service.create(dto);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -32,7 +33,7 @@ public class ApplicationController {
 
     @GetMapping("/{id}")
     public ResponseEntity<APIGlobalResponseDTO> findById(@PathVariable UUID id) {
-        ApplicationResponseDTO response = service.findById(id);
+        GroupResponseDTO response = service.findById(id);
 
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -41,7 +42,7 @@ public class ApplicationController {
 
     @GetMapping
     public ResponseEntity<APIGlobalResponseDTO> findAll() {
-        List<ApplicationResponseDTO> response = service.findAll();
+        List<GroupResponseDTO> response = service.findAll();
 
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -49,9 +50,9 @@ public class ApplicationController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<APIGlobalResponseDTO> updateById(@RequestBody @Valid ApplicationRequestDTO dto,
+    public ResponseEntity<APIGlobalResponseDTO> updateById(@RequestBody @Valid GroupRequestDTO dto,
                                                            @PathVariable UUID id) {
-        ApplicationResponseDTO response = service.updateById(dto, id);
+        var response = service.updateById(dto, id);
 
         return ResponseEntity
                 .status(HttpStatus.OK)
