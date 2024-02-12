@@ -43,10 +43,10 @@ public class User {
     )
     private List<Group> groups;
 
-    public User(UserRequestDTO dto, Application application, List<Group> groups) {
+    public User(UserRequestDTO dto, String password, Application application, List<Group> groups) {
         this.name = dto.name();
         this.username = dto.username();
-        this.password = dto.password();
+        this.password = password;
         this.application = application;
         this.groups = groups;
     }

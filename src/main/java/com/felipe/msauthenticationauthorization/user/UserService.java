@@ -10,6 +10,7 @@ import com.felipe.msauthenticationauthorization.group.GroupRepository;
 import com.felipe.msauthenticationauthorization.user.dtos.UserRequestDTO;
 import com.felipe.msauthenticationauthorization.user.dtos.UserResponseDTO;
 import jakarta.transaction.Transactional;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,13 +23,16 @@ public class UserService {
     private final UserRepository userRepository;
     private final ApplicationRepository applicationRepository;
     private final GroupRepository groupRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public UserService(UserRepository userRepository,
                        ApplicationRepository applicationRepository,
-                       GroupRepository groupRepository) {
+                       GroupRepository groupRepository,
+                       PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.applicationRepository = applicationRepository;
         this.groupRepository = groupRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional
@@ -56,7 +60,13 @@ public class UserService {
             userGroups.add(groupOp.get());
         }
 
-        var newUser = new User(dto, applicationOp.get(), userGroups);
+        String encodedPassword = passwordEncoder.encode(dto.password());
+        var newUser = new User(
+                dto,
+                encodedPassword,
+                applicationOp.get(),
+                userGroups
+        );
         var savedUser = userRepository.save(newUser);
 
         return UserResponseDTO
@@ -122,9 +132,11 @@ public class UserService {
             userGroups.add(groupOp.get());
         }
 
+        String encodedPassword = passwordEncoder.encode(dto.password());
+
         userOp.get().setName(dto.name());
         userOp.get().setUsername(dto.username());
-        userOp.get().setPassword(dto.password());
+        userOp.get().setPassword(encodedPassword);
         userOp.get().setGroups(userGroups);
 
         var updatedUser = userRepository.save(userOp.get());
