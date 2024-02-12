@@ -29,7 +29,9 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler({
             FieldAlreadyInUseException.class,
-            ResourceNotFoundException.class
+            ResourceNotFoundException.class,
+            GroupNotBelongApplicationException.class,
+            UserNotBelongApplicationException.class
     })
     protected ResponseEntity<APIGlobalResponseDTO> handleFieldAlreadyInUseException(RuntimeException ex) {
         return ResponseEntity

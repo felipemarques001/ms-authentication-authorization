@@ -2,11 +2,9 @@ package com.felipe.msauthenticationauthorization.user;
 
 import com.felipe.msauthenticationauthorization.application.Application;
 import com.felipe.msauthenticationauthorization.group.Group;
+import com.felipe.msauthenticationauthorization.user.dtos.UserRequestDTO;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -15,6 +13,7 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(of = "id")
 @Entity
 @Table(name = "TB_USER")
 public class User {
@@ -43,4 +42,12 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "group_id")
     )
     private List<Group> groups;
+
+    public User(UserRequestDTO dto, Application application, List<Group> groups) {
+        this.name = dto.name();
+        this.username = dto.username();
+        this.password = dto.password();
+        this.application = application;
+        this.groups = groups;
+    }
 }

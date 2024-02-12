@@ -2,10 +2,7 @@ package com.felipe.msauthenticationauthorization.application;
 
 import com.felipe.msauthenticationauthorization.application.dtos.ApplicationRequestDTO;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.UUID;
 
@@ -13,6 +10,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(of = "id")
 @Entity
 @Table(name = "TB_APPLICATION")
 public class Application {

@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 
 import java.util.List;
+import java.util.UUID;
 
 public record UserRequestDTO (
 
@@ -21,6 +22,6 @@ public record UserRequestDTO (
         String accessKey,
 
         @NotEmpty(message = "In order to create a user is necessary sent at least one group")
-        List<Group>groups
+        List<UUID>groupIds
 ){
 }
