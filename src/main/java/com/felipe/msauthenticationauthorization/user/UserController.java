@@ -76,8 +76,8 @@ public class UserController {
                 .body(new APIGlobalResponseDTO(jwtToken));
     }
 
-    @GetMapping("/verify-permission/{permission}")
-    public ResponseEntity<Void> verifyPermission(@PathVariable String permission) {
+    @GetMapping("/verify-permission")
+    public ResponseEntity<Void> verifyPermission(@RequestParam String permission) {
         boolean authorized = service.verifyPermission(permission);
 
         return authorized
