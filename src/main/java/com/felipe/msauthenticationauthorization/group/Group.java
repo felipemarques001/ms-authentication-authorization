@@ -31,7 +31,7 @@ public class Group {
 
     @ManyToMany
     @JoinTable(
-            name = "group_permission",
+            name = "tb_group_permission",
             joinColumns = @JoinColumn(name = "group_id"),
             inverseJoinColumns = @JoinColumn(name = "permission_id")
     )

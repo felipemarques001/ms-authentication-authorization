@@ -11,6 +11,7 @@ public record UserResponseDTO (
         UUID id,
         String name,
         String username,
+        String applicationName,
         List<Group> groups
 ){
     public static UserResponseDTO createUserResponseDTO(User user) {
@@ -18,6 +19,7 @@ public record UserResponseDTO (
             user.getId(),
             user.getName(),
             user.getUsername(),
+            user.getApplication().getName(),
             user.getGroups()
         );
     }

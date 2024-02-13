@@ -7,6 +7,7 @@ import com.felipe.msauthenticationauthorization.group.dtos.GroupRequestDTO;
 import com.felipe.msauthenticationauthorization.group.dtos.GroupResponseDTO;
 import com.felipe.msauthenticationauthorization.permission.Permission;
 import com.felipe.msauthenticationauthorization.permission.PermissionRepository;
+import com.felipe.msauthenticationauthorization.user.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -20,13 +21,16 @@ public class GroupService {
     private final GroupRepository groupRepository;
     private final ApplicationRepository applicationRepository;
     private final PermissionRepository permissionRepository;
+    private final UserRepository userRepository;
 
     public GroupService(GroupRepository groupRepository,
                         ApplicationRepository applicationRepository,
-                        PermissionRepository permissionRepository) {
+                        PermissionRepository permissionRepository,
+                        UserRepository userRepository) {
         this.groupRepository = groupRepository;
         this.applicationRepository = applicationRepository;
         this.permissionRepository = permissionRepository;
+        this.userRepository = userRepository;
     }
 
     @Transactional
@@ -122,8 +126,17 @@ public class GroupService {
 
     @Transactional
     public void deleteById(UUID id) {
-        if(!(groupRepository.existsById(id)))
+        var groupOp = groupRepository.findById(id);
+        if(groupOp.isEmpty())
             throw new ResourceNotFoundException("Group", "ID", id.toString());
+
+        var usersWithHasGroup = userRepository.findByGroupId(id);
+
+        usersWithHasGroup.forEach(user -> {
+                user.getGroups().remove(groupOp.get());
+                userRepository.save(user);
+            }
+        );
 
         groupRepository.deleteById(id);
     }

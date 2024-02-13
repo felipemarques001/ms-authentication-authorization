@@ -31,11 +31,19 @@ public class GlobalExceptionHandler {
             FieldAlreadyInUseException.class,
             ResourceNotFoundException.class,
             GroupNotBelongApplicationException.class,
-            UserNotBelongApplicationException.class
+            UserNotBelongApplicationException.class,
+            JwtTokenInvalidException.class
     })
-    protected ResponseEntity<APIGlobalResponseDTO> handleFieldAlreadyInUseException(RuntimeException ex) {
+    protected ResponseEntity<APIGlobalResponseDTO> handleExceptionsOfTypeBadRequest(RuntimeException ex) {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
+                .body(new APIGlobalResponseDTO(ex.getMessage()));
+    }
+
+    @ExceptionHandler(JwtTokenCreationException.class)
+    protected ResponseEntity<APIGlobalResponseDTO> handleJwtTokenCreationException(JwtTokenCreationException ex) {
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(new APIGlobalResponseDTO(ex.getMessage()));
     }
 }

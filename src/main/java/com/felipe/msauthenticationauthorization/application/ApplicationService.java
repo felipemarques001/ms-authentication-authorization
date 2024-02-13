@@ -4,6 +4,10 @@ import com.felipe.msauthenticationauthorization.application.dtos.ApplicationRequ
 import com.felipe.msauthenticationauthorization.application.dtos.ApplicationResponseDTO;
 import com.felipe.msauthenticationauthorization.exceptions.FieldAlreadyInUseException;
 import com.felipe.msauthenticationauthorization.exceptions.ResourceNotFoundException;
+import com.felipe.msauthenticationauthorization.group.Group;
+import com.felipe.msauthenticationauthorization.group.GroupRepository;
+import com.felipe.msauthenticationauthorization.group.GroupService;
+import com.felipe.msauthenticationauthorization.user.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +19,15 @@ import java.util.UUID;
 public class ApplicationService {
 
     private final ApplicationRepository applicationRepository;
+    private final GroupRepository groupRepository;
+    private final UserRepository userRepository;
 
-    public ApplicationService(ApplicationRepository applicationRepository) {
+    public ApplicationService(ApplicationRepository applicationRepository,
+                              GroupRepository groupRepository,
+                              UserRepository userRepository) {
         this.applicationRepository = applicationRepository;
+        this.groupRepository = groupRepository;
+        this.userRepository = userRepository;
     }
 
     @Transactional
@@ -74,8 +84,18 @@ public class ApplicationService {
 
     @Transactional
     public void deleteById(UUID id) {
-        if(!(applicationRepository.existsById(id)))
+        if(!applicationRepository.existsById(id))
             throw new ResourceNotFoundException("Application", "ID", id.toString());
+
+        var applicationUsers = userRepository.findByApplicationId(id);
+        applicationUsers.forEach(user ->
+                userRepository.deleteById(user.getId())
+        );
+
+        List<Group> applicationGroups = groupRepository.findByApplicationId(id);
+        applicationGroups.forEach(group ->
+            groupRepository.deleteById(group.getId())
+        );
 
         applicationRepository.deleteById(id);
     }
