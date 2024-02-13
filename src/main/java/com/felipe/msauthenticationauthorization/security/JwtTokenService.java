@@ -6,6 +6,7 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import com.felipe.msauthenticationauthorization.exceptions.JwtTokenCreationException;
+import com.felipe.msauthenticationauthorization.exceptions.JwtTokenInvalidException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
 
@@ -49,7 +50,7 @@ public class JwtTokenService {
                     .verify(token)
                     .getClaims();
         } catch (JWTVerificationException exception) {
-            throw new JwtTokenCreationException();
+            throw new JwtTokenInvalidException();
         }
     }
 

@@ -32,7 +32,9 @@ public class GlobalExceptionHandler {
             ResourceNotFoundException.class,
             GroupNotBelongApplicationException.class,
             UserNotBelongApplicationException.class,
-            JwtTokenInvalidException.class
+            JwtTokenInvalidException.class,
+            InvalidDataException.class,
+            JwtTokenNotFoundException.class
     })
     protected ResponseEntity<APIGlobalResponseDTO> handleExceptionsOfTypeBadRequest(RuntimeException ex) {
         return ResponseEntity

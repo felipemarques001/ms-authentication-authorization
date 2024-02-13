@@ -1,5 +1,7 @@
 package com.felipe.msauthenticationauthorization.user;
 
+import com.felipe.msauthenticationauthorization.user.dtos.LoginUserRequestDTO;
+import com.felipe.msauthenticationauthorization.user.dtos.LoginUserResponseDTO;
 import com.felipe.msauthenticationauthorization.user.dtos.UserRequestDTO;
 import com.felipe.msauthenticationauthorization.user.dtos.UserResponseDTO;
 import com.felipe.msauthenticationauthorization.utils.APIGlobalResponseDTO;
@@ -64,5 +66,22 @@ public class UserController {
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .build();
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<APIGlobalResponseDTO> login(@RequestBody @Valid LoginUserRequestDTO dto) {
+        LoginUserResponseDTO jwtToken = service.loginUser(dto);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(new APIGlobalResponseDTO(jwtToken));
+    }
+
+    @GetMapping("/verify-permission/{permission}")
+    public ResponseEntity<Void> verifyPermission(@PathVariable String permission) {
+        boolean authorized = service.verifyPermission(permission);
+
+        return authorized
+                ? ResponseEntity.status(HttpStatus.OK).build()
+                : ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 }
