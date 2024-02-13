@@ -27,8 +27,8 @@ public class Permission {
     @Column(nullable = false)
     private Boolean active;
 
-    public Permission(PermissionRequestDTO dto) {
-        this.name = dto.name();
-        this.active = dto.active();
+    public Permission(String name, Boolean active) {
+        this.name = name;
+        this.active = active;
     }
 }

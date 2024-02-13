@@ -21,7 +21,11 @@ public class PermissionService {
 
     @Transactional
     public PermissionResponseDTO create(PermissionRequestDTO dto) {
-        var newPermission = new Permission(dto);
+        // Handling the permission name
+        String permissionName = dto.name().trim();
+        permissionName = permissionName.replace(" ", "-");
+
+        var newPermission = new Permission(permissionName, dto.active());
         var savedPermission = permissionRepository.save(newPermission);
 
         return PermissionResponseDTO
