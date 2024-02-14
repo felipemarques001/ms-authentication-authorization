@@ -26,13 +26,13 @@ Here are the technologies used in this project.
 * Spring Security Crypto
 
 # Microservice-Authentication-Authorization flow
-![image](https://github.com/felipemarques001/ms-authentication-authorization/assets/82411791/2911ac4a-91f1-45da-9b1a-998ef257b522)
+![Microservice-Authentication-Authorization flow](https://github.com/felipemarques001/ms-authentication-authorization/assets/82411791/2911ac4a-91f1-45da-9b1a-998ef257b522)
 
 
 
 
 # Microservice-Fuel-Supply database ERD
-![image](https://github.com/felipemarques001/ms-authentication-authorization/assets/82411791/0a39a7aa-387a-4b4c-b3ab-b9a5411bf180)
+![Microservice-Fuel-Supply database ERD](https://github.com/felipemarques001/ms-authentication-authorization/assets/82411791/0a39a7aa-387a-4b4c-b3ab-b9a5411bf180)
 
 
 # Documentation:

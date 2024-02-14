@@ -81,7 +81,7 @@ public class UserController {
         boolean authorized = service.verifyPermission(permission);
 
         return authorized
-                ? ResponseEntity.status(HttpStatus.OK).build()
+                ? ResponseEntity.status(HttpStatus.NO_CONTENT).build()
                 : ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 }
