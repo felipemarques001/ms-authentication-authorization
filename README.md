@@ -31,16 +31,16 @@ Here are the technologies used in this project.
 
 
 
-# Microservice-Fuel-Supply database ERD
+# Microservice-Authentication-Authorization database ERD
 ![Microservice-Fuel-Supply database ERD](https://github.com/felipemarques001/ms-authentication-authorization/assets/82411791/0a39a7aa-387a-4b4c-b3ab-b9a5411bf180)
 
 
 # Documentation:
-
+[Microservice Fuel Supply's documentation](DOCUMENTATION.md)
 
 
 ## Links
-  - Repository: [ms-authentication-authorization's repository](https://github.com/felipemarques001/ms-authentication-authorization)
+  - Repository: [Microservice Authentication Authorization's repository](https://github.com/felipemarques001/ms-authentication-authorization)
     - In case of sensitive bugs like security vulnerabilities, please contact
       felipemarquesgg@gmail.com directly instead of using issue tracker. We value your effort
       to improve the security and privacy of this project!
